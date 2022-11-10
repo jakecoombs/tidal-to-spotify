@@ -14,5 +14,29 @@ class Spotify:
         print("Spotify login successful.")
 
     def getSavedTracks(self):
-        savedTracksObject = self.session.current_user_saved_tracks()
-        return savedTracksObject["items"]
+        # There is a max limit of 50 songs per request
+        savedTracks: list[any] = []
+        complete = False
+        offset = 0
+        while not complete:
+            savedTracksObject = self.session.current_user_saved_tracks(50, offset)
+            items = savedTracksObject["items"]
+            savedTracks.extend(items)
+
+            if len(items) < 50:
+                complete = True
+            offset += 50
+
+        return savedTracks
+
+    def mapSavedTracksByArtist(self, tracks):
+        artistMap = {}
+
+        for track in tracks:
+            artist = track["track"]["artists"][0]["name"]
+            if artist in artistMap:
+                artistMap[artist].append(track["track"]["name"])
+            else:
+                artistMap[artist] = [track["track"]["name"]]
+
+        return artistMap

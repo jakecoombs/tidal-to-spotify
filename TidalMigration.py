@@ -21,7 +21,8 @@ class TidalMigration:
         spotifyTracks = self.spotifyAccount.getSavedTracks()
 
         # Map Spotify tracks to artist -> song
-        print("Mapping Spotify tracks...")
+        print(f"Mapping {len(spotifyTracks)} Spotify tracks...")
+        mappedSpotifyTracks = self.spotifyAccount.mapSavedTracksByArtist(spotifyTracks)
 
         # Filter for duplicate tracks
         print("Filtering duplicate tracks...")
