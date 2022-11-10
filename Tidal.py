@@ -1,10 +1,10 @@
 import os
+from typing import Any
 
 import tidalapi
-from tidalapi.media import Track
-from tidalapi.artist import Artist
 from dotenv import load_dotenv
-from typing import Any
+from tidalapi.artist import Artist
+from tidalapi.media import Track
 
 load_dotenv()
 
