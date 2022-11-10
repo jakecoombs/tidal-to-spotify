@@ -9,13 +9,22 @@ class TidalMigration:
 
     def migrateFavouriteTracks(self):
         # Get Tidal tracks
+        print("Getting favourite tracks from Tidal...")
         tidalTracks = self.tidalAccount.getFavouriteTracks()
 
-        # Map Tidal tracks to something useful
+        # Map Tidal tracks to artist -> song
+        print(f"Mapping {len(tidalTracks)} Tidal tracks...")
+        mappedTidalTracks = self.tidalAccount.mapFavouriteTracksByArtist(tidalTracks)
 
         # Get Spotify tracks
+        print("Getting favourite tracks from Spotify...")
         spotifyTracks = self.spotifyAccount.getSavedTracks()
 
-        # Map Spotify tracks to same object strucure as mapped Tidal tracks
+        # Map Spotify tracks to artist -> song
+        print("Mapping Spotify tracks...")
 
         # Filter for duplicate tracks
+        print("Filtering duplicate tracks...")
+
+        # Add remaining songs to liked songs in Spotify
+        print("Liking missing songs in Spotify...")

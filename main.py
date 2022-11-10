@@ -29,6 +29,7 @@ load_dotenv()
 def main():
     print("Starting transfer from Tidal to Spotify...")
     migration = TidalMigration()
+    migration.migrateFavouriteTracks()
     print("Transfer complete.")
 
 

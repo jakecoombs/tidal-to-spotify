@@ -1,7 +1,10 @@
 import os
 
 import tidalapi
+from tidalapi.media import Track
+from tidalapi.artist import Artist
 from dotenv import load_dotenv
+from typing import Any
 
 load_dotenv()
 
@@ -43,3 +46,15 @@ class Tidal:
     def getFavouriteTracks(self):
         # Returns list of tracks of type tidalapi.media.Track
         return self.favourites.tracks()
+
+    def mapFavouriteTracksByArtist(self, tracks: list[Track]):
+        artistMap: dict[str, list[str]] = {}
+
+        for track in tracks:
+            trackArtist: Artist = track.artist
+            if trackArtist.name in artistMap:
+                artistMap[trackArtist.name].append(track.name)
+            else:
+                artistMap[trackArtist.name] = [track.name]
+
+        return artistMap
