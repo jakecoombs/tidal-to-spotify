@@ -31,7 +31,9 @@ class TidalMigration:
         )
 
         # Add remaining songs to liked songs in Spotify
-        print("Liking missing songs in Spotify...")
+        print(
+            f"Liking missing songs of {len(filteredTracks.keys())} artists in Spotify..."
+        )
 
     def filterDuplicateTracks(
         self, tidalTracks: dict[str, list[str]], spotifyTracks: dict[str, list[str]]
