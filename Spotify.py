@@ -3,6 +3,7 @@ import os
 import spotipy
 from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
+from utils import stripTrackName
 
 load_dotenv()
 
@@ -33,10 +34,11 @@ class Spotify:
         artistMap = {}
 
         for track in tracks:
-            artist = track["track"]["artists"][0]["name"]
+            artist = track["track"]["artists"][0]["name"].lower()
+            strippedTrackName = stripTrackName(track["track"]["name"])
             if artist in artistMap:
-                artistMap[artist].append(track["track"]["name"])
+                artistMap[artist].append(strippedTrackName)
             else:
-                artistMap[artist] = [track["track"]["name"]]
+                artistMap[artist] = [strippedTrackName]
 
         return artistMap

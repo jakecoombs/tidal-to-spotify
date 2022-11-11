@@ -5,6 +5,7 @@ import tidalapi
 from dotenv import load_dotenv
 from tidalapi.artist import Artist
 from tidalapi.media import Track
+from utils import stripTrackName
 
 load_dotenv()
 
@@ -51,10 +52,11 @@ class Tidal:
         artistMap: dict[str, list[str]] = {}
 
         for track in tracks:
-            trackArtist: Artist = track.artist
-            if trackArtist.name in artistMap:
-                artistMap[trackArtist.name].append(track.name)
+            trackArtist = track.artist.name.lower()
+            strippedTrackName = stripTrackName(track.name)
+            if trackArtist in artistMap:
+                artistMap[trackArtist].append(strippedTrackName)
             else:
-                artistMap[trackArtist.name] = [track.name]
+                artistMap[trackArtist] = [strippedTrackName]
 
         return artistMap

@@ -26,6 +26,31 @@ class TidalMigration:
 
         # Filter for duplicate tracks
         print("Filtering duplicate tracks...")
+        filteredTracks = self.filterDuplicateTracks(
+            mappedTidalTracks, mappedSpotifyTracks
+        )
 
         # Add remaining songs to liked songs in Spotify
         print("Liking missing songs in Spotify...")
+
+    def filterDuplicateTracks(
+        self, tidalTracks: dict[str, list[str]], spotifyTracks: dict[str, list[str]]
+    ) -> dict[str, list[str]]:
+        missingTracks = {}
+
+        # If a song is present in both Spotify and Tidal, remove it from the list
+        for artist in tidalTracks:
+            if artist not in spotifyTracks:
+                missingTracks[artist] = tidalTracks[artist]
+                continue
+
+            missingSongs = list(
+                set(tidalTracks[artist]).symmetric_difference(
+                    set(spotifyTracks[artist])
+                )
+            )
+
+            if len(missingSongs) > 1:
+                missingTracks[artist] = missingSongs
+
+        return missingTracks
