@@ -30,7 +30,7 @@ def main():
     print("Starting transfer from Tidal to Spotify...")
     migration = TidalMigration()
     migration.migrateFavouriteTracks()
-    print("Transfer complete.")
+    print("\nTransfer complete.")
 
 
 if __name__ == "__main__":

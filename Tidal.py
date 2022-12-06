@@ -5,6 +5,7 @@ import tidalapi
 from dotenv import load_dotenv
 from tidalapi.artist import Artist
 from tidalapi.media import Track
+
 from utils import stripTrackName
 
 load_dotenv()
